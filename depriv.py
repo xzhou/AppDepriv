@@ -18,7 +18,7 @@ class DeprivException(Exception):
 
 
 class ApkDeprivilege:
-    def __init__(self):
+    def __init__(self, verbose=False):
         self.apk_file_path = None
         # the apk representation
         self.apk = None
@@ -26,20 +26,31 @@ class ApkDeprivilege:
         self.dx = None
         self.declared_permissions = None
 
+        self.verbose = verbose
+
+    def log(self, message):
+        if self.verbse:
+            print(message)
+
     def load_apk(self, apk_file_path):
-        print('loading %s, ...' % apk_file_path)
+        '''
+        Load the apk files and and inflate the apk, dex and dx structure
+        Parameters
+        ----------
+        apk_file_path: The path of the apk file
 
+        Returns: None
+        -------
+        '''
+        self.log('loading %s, ...' % apk_file_path)
         self.apk_file_path = apk_file_path
-
         self.apk, self.dex, self.dx = AnalyzeAPK(self.apk_file_path)
-
-        print('%s loaded' % self.apk.get_package())
+        self.log('%s loaded' % self.apk.get_package())
 
     def find_dx_permissions(self):
         '''
         Find all permission that is used.
-        :param dx:
-        :return:
+        Returns: None
         '''
         if self.dx:
             return analysis.get_dx_permissions(self.dx)
@@ -121,7 +132,7 @@ if __name__ == '__main__':
     if args.verbose:
         print('The apk file is %s' % args.apk)
 
-    analyzer = ApkDeprivilege()
+    analyzer = ApkDeprivilege(verbose=True)
     analyzer.analyze(args.apk)
 
 
