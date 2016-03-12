@@ -1,27 +1,9 @@
 # This is a parallel scanner to process all apk files in a folder.
 
 from multiprocessing import Queue, Process, pool, Lock, current_process
+from depriv_tools.apk_processor import ApkProcessor
 
 import os
-
-
-class ApkProcessor(Process):
-    def __init__(self, file_queue, result_queue=None):
-        Process.__init__(self)
-        self.file_queue = file_queue
-        self.result_queue = result_queue
-
-    def run(self):
-        while True:
-            next_file = self.file_queue.get()
-            if next_file is None:
-                print(' %s: exiting '% self.name)
-                break
-            self.process_apk(next_file)
-
-    def process_apk(self, file_name):
-        # TODO process apks files
-        print(file_name)
 
 
 class ParaScanner(object):
