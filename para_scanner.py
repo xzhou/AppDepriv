@@ -20,13 +20,16 @@ class ParaScanner(object):
             for f in files:
                 file_name, extension = os.path.splitext(f)
                 if extension == '.py':
-                    self.file_queue.put(os.path.join(root, file_name))
+                    self.file_queue.put(os.path.join(root, f))
 
     def process_files(self):
+        ''' Create a process pool to process each file.
+        '''
         processes = []
         for i in range(self.max_process):
             p = ApkProcessor(self.file_queue)
-            self.file_queue.put(None)
+            # poison pill for each process and kill threads when no more tasks
+            self.file_queue.put('STOP')
             p.start()
             processes.append(p)
 
