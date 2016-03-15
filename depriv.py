@@ -29,7 +29,7 @@ class ApkDeprivilege:
         self.verbose = verbose
 
     def log(self, message):
-        if self.verbse:
+        if self.verbose:
             print(message)
 
     def load_apk(self, apk_file_path):
@@ -74,7 +74,10 @@ class ApkDeprivilege:
             p_str = str(p)
             perm = p_str.split('.')[-1]
             if perm not in dx_perm:
+                print '[-]', p
                 result.append(p)
+            else:
+                print '[+]', p
         return result
 
     def is_permission_used(self, permission):
@@ -96,9 +99,11 @@ class ApkDeprivilege:
         self.find_all_permission()
         unused_permission = self.unnecessary_permission()
 
+        '''
         print '------\nthe following permissions is not necessary:'
         for p in unused_permission:
             print(p)
+        '''
 
     def load_api_permission_mapping(self, sdk_version):
         package_name = 'androguard.core.api_specific_resources.api_permission_mappings'

@@ -47,7 +47,7 @@ if sys.hexversion < 0x2070000 :
     except ImportError :
         ZIPMODULE = 1
 else :
-    ZIPMODULE = 1 
+    ZIPMODULE = 2
 
 ################################################### CHILKAT ZIP FORMAT #####################################################
 class ChilkatZip :

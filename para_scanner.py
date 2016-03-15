@@ -19,7 +19,7 @@ class ParaScanner(object):
         for root, dirs, files in os.walk(folder_path):
             for f in files:
                 file_name, extension = os.path.splitext(f)
-                if extension == '.py':
+                if extension == '.apk':
                     self.file_queue.put(os.path.join(root, f))
 
     def process_files(self):
@@ -42,5 +42,7 @@ class ParaScanner(object):
 
 if __name__ == '__main__':
     scanner = ParaScanner()
-    scanner.scan()
+
+    g920a = '/home/xzhou/data/Samsung/depriviallage/priv-app/priv_app_G920A'
+    scanner.scan(g920a)
 

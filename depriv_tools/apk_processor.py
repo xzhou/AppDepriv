@@ -19,7 +19,10 @@ class ApkProcessor(Process):
 
     def process_apk(self, file_name):
         print('%s processing %s ' % (self.name, file_name))
-        #apk, dex, dx = AnalyzeAPK(file_name)
+        apk, dex, dx = AnalyzeAPK(file_name)
+        print apk.get_package()
+
+
 
 
 
